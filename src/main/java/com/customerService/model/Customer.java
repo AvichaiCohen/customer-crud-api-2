@@ -9,9 +9,9 @@ public class Customer {
     private String email;
     private int age;
     private String address;
-    private Date joiningDate;
+    private String joiningDate;
 
-    public Customer(Long id, String firstName, String lastName, String email, int age, String address, Date joiningDate) {
+    public Customer(Long id, String firstName, String lastName, String email, int age, String address, String joiningDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,7 +45,7 @@ public class Customer {
         return address;
     }
 
-    public Date getJoiningDate() {
+    public String getJoiningDate() {
         return joiningDate;
     }
 
@@ -73,7 +73,7 @@ public class Customer {
         this.address = address;
     }
 
-    public void setJoiningDate(Date joiningDate) {
+    public void setJoiningDate(String joiningDate) {
         this.joiningDate = joiningDate;
     }
 }
