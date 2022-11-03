@@ -8,7 +8,7 @@ CREATE TABLE customer (
     email varchar(300) NOT NULL DEFAULT '',
     age int(120) NOT NULL DEFAULT '',
     address varchar(300) NOT NULL DEFAULT '',
-    joining_date date NOT NULL DEFAULT '',
+    joining_date varchar(300) NOT NULL DEFAULT '',
     PRIMARY KEY (id)
 );
 
