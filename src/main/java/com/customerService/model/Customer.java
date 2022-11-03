@@ -11,13 +11,13 @@ public class Customer {
     private String address;
     private Date joiningDate;
 
-    public Customer(Long id, String firstName, String lastName, String email, int age, String address1, Date joiningDate) {
+    public Customer(Long id, String firstName, String lastName, String email, int age, String address, Date joiningDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
-        this.address = address1;
+        this.address = address;
         this.joiningDate = joiningDate;
     }
 
