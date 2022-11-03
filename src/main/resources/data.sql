@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS customer_order;
 DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS student;
 
 CREATE TABLE customer (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -18,12 +17,4 @@ CREATE TABLE customer_order (
     price DECIMAL(100,2) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
     FOREIGN KEY (customer_id) REFERENCES customer(id)
-);
-
-CREATE TABLE student (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    first_name varchar(300) NOT NULL DEFAULT '',
-    last_name varchar(300) NOT NULL DEFAULT '',
-    email varchar(300) NOT NULL DEFAULT '',
-    PRIMARY KEY (id)
 );
