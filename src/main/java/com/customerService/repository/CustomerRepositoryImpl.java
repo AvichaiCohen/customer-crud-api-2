@@ -19,15 +19,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void createCustomer(Customer customer) {
-        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail());
+        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, age, address, joining_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate());
     }
 
     @Override
     public void updateCustomerById(Long customerId, Customer customer) {
-        String sql = "UPDATE " + CUSTOMER_TABLE_NAME + " SET first_name=?, last_name=?, email=? " +
+        String sql = "UPDATE " + CUSTOMER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, age=?, address=?,joining_date=? " +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customerId);
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(),customer.getAge(),customer.getAddress(),customer.getJoiningDate(), customerId);
     }
 
     @Override
