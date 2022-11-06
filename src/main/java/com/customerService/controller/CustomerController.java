@@ -7,6 +7,7 @@ import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class CustomerController {
         customerRepository.createCustomer(customer);
     }
     @PostMapping(value = "/customer/cre")
-    public String createTest(@RequestBody String message){
-        return String.format("that's it man");
+    public String createTest(@RequestBody Date joindate){
+        return String.format("nice");
     }
 
     @PutMapping(value = "/customer/{customerId}/update")
