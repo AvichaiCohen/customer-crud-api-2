@@ -3,6 +3,7 @@ package com.customerService.controller;
 
 import com.customerService.model.Customer;
 import com.customerService.repository.CustomerRepository;
+import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,12 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @PostMapping(value = "/customer/create")
-    public void createCustomer(@RequestBody Customer customer){
+    public void createCustomer(@RequestBody Customer customer) {
         customerRepository.createCustomer(customer);
+    }
+    @PostMapping(value = "/customer/cre")
+    public String createTest(@RequestBody String message){
+        return String.format("that's it man");
     }
 
     @PutMapping(value = "/customer/{customerId}/update")
