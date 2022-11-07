@@ -3,6 +3,7 @@ package com.customerService.controller;
 
 import com.customerService.model.Customer;
 import com.customerService.repository.CustomerRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @PostMapping(value = "/customer/create")
-    public void createCustomer(@RequestBody Customer customer) {
+    public void createCustomer(@RequestBody Customer customer) throws JsonProcessingException {
         customerRepository.createCustomer(customer);
     }
     @PostMapping(value = "/customer/cre")
