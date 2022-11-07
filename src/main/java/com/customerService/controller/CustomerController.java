@@ -22,7 +22,7 @@ public class CustomerController {
     }
     @PostMapping(value = "/customer/cre")
     public String createTest(@RequestBody String joindate){
-        return joindate+"mofka";
+        return String.format(joindate+"mofka");
     }
 
     @PutMapping(value = "/customer/{customerId}/update")
