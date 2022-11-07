@@ -21,8 +21,8 @@ public class CustomerController {
         customerRepository.createCustomer(customer);
     }
     @PostMapping(value = "/customer/cre")
-    public String createTest(@RequestBody Date joindate){
-        return String.format("nice");
+    public String createTest(@RequestBody String joindate){
+        return joindate+"mofka";
     }
 
     @PutMapping(value = "/customer/{customerId}/update")
