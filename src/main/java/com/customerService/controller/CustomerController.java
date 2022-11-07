@@ -18,7 +18,7 @@ public class CustomerController {
     private CustomerRepository customerRepository;
 
     @PostMapping(value = "/customer/create")
-    public void createCustomer(@RequestBody Customer customer) throws JsonProcessingException {
+    public void createCustomer(@RequestBody Customer customer) {
         customerRepository.createCustomer(customer);
     }
     @PostMapping(value = "/customer/cre")
