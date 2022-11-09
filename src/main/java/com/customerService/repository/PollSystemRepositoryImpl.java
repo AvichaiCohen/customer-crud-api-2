@@ -1,9 +1,6 @@
 package com.customerService.repository;
-import com.customerService.model.CustomerOrder;
-import com.customerService.model.CustomerOrderRequest;
-import com.customerService.model.CustomerOrderResponse;
-import com.customerService.repository.mapper.CustomerMapper;
-import com.customerService.repository.mapper.CustomerOrderMapper;
+import com.customerService.model.PollSystem;
+import com.customerService.repository.mapper.PollSystemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CustomerOrderRepositoryImpl implements CustomerOrderRepository{
+public class PollSystemRepositoryImpl implements PollSystemRepository {
 
     private static final String CUSTOMER_ORDER_TABLE_NAME = "customer_order";
 
@@ -20,16 +17,16 @@ public class CustomerOrderRepositoryImpl implements CustomerOrderRepository{
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createCustomerOrder(CustomerOrder customerOrder) throws Exception {
+    public void createCustomerOrder(PollSystem pollSystem) throws Exception {
         String sql = "INSERT INTO " + CUSTOMER_ORDER_TABLE_NAME + " (customer_id, item_name, price, currency) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customerOrder.getCustomerId(), customerOrder.getItemName(), customerOrder.getPrice(), customerOrder.getCurrency().name());
+        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getItemName(), pollSystem.getPrice(), pollSystem.getCurrency().name());
     }
 
     @Override
-    public void updateCustomerOrderById(Long customerOrderId, CustomerOrder customerOrder) throws Exception {
+    public void updateCustomerOrderById(Long customerOrderId, PollSystem pollSystem) throws Exception {
         String sql = "UPDATE " + CUSTOMER_ORDER_TABLE_NAME + " SET customer_id=?, item_name=?, price=?, currency=?" +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, customerOrder.getCustomerId(), customerOrder.getItemName(), customerOrder.getPrice(), customerOrder.getCurrency().name(), customerOrderId);
+        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getItemName(), pollSystem.getPrice(), pollSystem.getCurrency().name(), customerOrderId);
     }
 
     @Override
@@ -39,20 +36,20 @@ public class CustomerOrderRepositoryImpl implements CustomerOrderRepository{
     }
 
     @Override
-    public CustomerOrder getCustomerOrderById(Long id) {
+    public PollSystem getCustomerOrderById(Long id) {
         String sql = "SELECT * FROM " + CUSTOMER_ORDER_TABLE_NAME + " WHERE id=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new CustomerOrderMapper(), id);
+            return jdbcTemplate.queryForObject(sql, new PollSystemMapper(), id);
         } catch (EmptyResultDataAccessException error){
             return null;
         }
     }
 
     @Override
-    public List<CustomerOrder> getCustomerOrdersByCustomerId(Long customerId) {
+    public List<PollSystem> getCustomerOrdersByCustomerId(Long customerId) {
         String sql = "SELECT * FROM " + CUSTOMER_ORDER_TABLE_NAME + " WHERE customer_id=?";
         try {
-            return jdbcTemplate.query(sql, new CustomerOrderMapper(), customerId);
+            return jdbcTemplate.query(sql, new PollSystemMapper(), customerId);
         } catch (EmptyResultDataAccessException error){
             return null;
         }

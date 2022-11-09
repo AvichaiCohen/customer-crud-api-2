@@ -1,5 +1,5 @@
 package com.customerService.model;
 
-public enum CustomerOrderCurrency {
+public enum PollSystemCurrency {
     USD, EURO, NIS, BIT
 }

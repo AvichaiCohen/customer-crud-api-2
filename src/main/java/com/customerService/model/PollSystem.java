@@ -2,14 +2,14 @@ package com.customerService.model;
 
 import java.util.List;
 
-public class CustomerOrder {
+public class PollSystem {
     private Long id;
     private Long customerId;
     private String itemName;
     private Long price;
-    private CustomerOrderCurrency currency;
+    private PollSystemCurrency currency;
 
-    public CustomerOrder(Long id, Long customerId, String itemName, Long price, CustomerOrderCurrency currency) {
+    public PollSystem(Long id, Long customerId, String itemName, Long price, PollSystemCurrency currency) {
         this.id = id;
         this.customerId = customerId;
         this.itemName = itemName;
@@ -33,7 +33,7 @@ public class CustomerOrder {
         return price;
     }
 
-    public CustomerOrderCurrency getCurrency() {
+    public PollSystemCurrency getCurrency() {
         return currency;
     }
 
@@ -53,14 +53,14 @@ public class CustomerOrder {
         this.price = price;
     }
 
-    public void setCurrency(CustomerOrderCurrency currency) {
+    public void setCurrency(PollSystemCurrency currency) {
         this.currency = currency;
     }
 
-    public CustomerOrderResponse toCustomerOrderResponse(Customer customer, List<CustomerOrder> customerOrderList){
-        return new CustomerOrderResponse(
+    public PollSystemResponse toCustomerOrderResponse(Customer customer, List<PollSystem> pollSystemList){
+        return new PollSystemResponse(
                 customer,
-                customerOrderList
+                pollSystemList
         );
     }
 }

@@ -1,9 +1,9 @@
 package com.customerService.controller;
 
-import com.customerService.model.CustomerOrder;
-import com.customerService.model.CustomerOrderRequest;
-import com.customerService.model.CustomerOrderResponse;
-import com.customerService.service.CustomerOrderService;
+import com.customerService.model.PollSystem;
+import com.customerService.model.PollSystemRequest;
+import com.customerService.model.PollSystemResponse;
+import com.customerService.service.PollSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerOrderController {
 
     @Autowired
-    private CustomerOrderService customerOrderService;
+    private PollSystemService pollSystemService;
 
     @PostMapping(value = "/customerOrder/create")
-    public CustomerOrderResponse createCustomerOrder(@RequestBody CustomerOrderRequest customerOrderRequest) throws Exception {
-        return customerOrderService.createCustomerOrder(customerOrderRequest);
+    public PollSystemResponse createCustomerOrder(@RequestBody PollSystemRequest pollSystemRequest) throws Exception {
+        return pollSystemService.createCustomerOrder(pollSystemRequest);
     }
 
     @PutMapping(value = "/customerOrder/{customerOrderId}/update")
     public void updateCustomerOrderById(@PathVariable Long customerOrderId,
-                                        @RequestBody CustomerOrder customerOrder) throws Exception {
-        customerOrderService.updateCustomerOrderById(customerOrderId, customerOrder);
+                                        @RequestBody PollSystem pollSystem) throws Exception {
+        pollSystemService.updateCustomerOrderById(customerOrderId, pollSystem);
     }
 
     @DeleteMapping(value = "/customerOrder/{customerOrderId}/delete")
     public void deleteCustomerOrderById(@PathVariable Long customerOrderId) throws Exception {
-        customerOrderService.deleteCustomerOrderById(customerOrderId);
+        pollSystemService.deleteCustomerOrderById(customerOrderId);
     }
 
     @GetMapping(value = "/customerOrder/{customerOrderId}")
-    public CustomerOrder getCustomerOrderById(@PathVariable Long customerOrderId) {
-        return customerOrderService.getCustomerOrderById(customerOrderId);
+    public PollSystem getCustomerOrderById(@PathVariable Long customerOrderId) {
+        return pollSystemService.getCustomerOrderById(customerOrderId);
     }
 }
