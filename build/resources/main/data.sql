@@ -9,6 +9,7 @@ CREATE TABLE customer (
     age int(120) NOT NULL DEFAULT '',
     address varchar(300) NOT NULL DEFAULT '',
     joining_date varchar(300) NOT NULL DEFAULT '',
+    status varchar(300) NOT NULL DEFAULT 'REGULAR',
     PRIMARY KEY (id)
 );
 
