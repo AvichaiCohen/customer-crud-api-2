@@ -30,9 +30,10 @@ public class PollSystemRequest {
         return new PollSystem(
                 this.pollSystem.getId(),
                 this.customer.getId(),
-                this.pollSystem.getItemName(),
-                this.pollSystem.getPrice(),
-                this.pollSystem.getCurrency()
+                this.pollSystem.getFirstQuestion(),
+                this.pollSystem.getSecondQuestion(),
+                this.pollSystem.getThirdQuestion(),
+                this.pollSystem.getFourthQuestion()
         );
     }
 }
