@@ -5,16 +5,23 @@ import java.util.List;
 public class PollSystem {
     private Long id;
     private Long customerId;
-    private String itemName;
-    private Long price;
-    private PollSystemFirstQuestion currency;
 
-    public PollSystem(Long id, Long customerId, String itemName, Long price, PollSystemFirstQuestion currency) {
+    private PollSystemFirstQuestion firstQuestion;
+
+    private PollSystemSecondQuestion secondQuestion;
+
+    private PollSystemThirdQuestion thirdQuestion;
+
+    private PollSystemFourthQuestion fourthQuestion;
+
+
+    public PollSystem(Long id, Long customerId, PollSystemFirstQuestion firstQuestion, PollSystemSecondQuestion secondQuestion, PollSystemThirdQuestion thirdQuestion, PollSystemFourthQuestion fourthQuestion) {
         this.id = id;
         this.customerId = customerId;
-        this.itemName = itemName;
-        this.price = price;
-        this.currency = currency;
+        this.firstQuestion = firstQuestion;
+        this.secondQuestion = secondQuestion;
+        this.thirdQuestion = thirdQuestion;
+        this.fourthQuestion = fourthQuestion;
     }
 
     public Long getId() {
@@ -25,16 +32,20 @@ public class PollSystem {
         return customerId;
     }
 
-    public String getItemName() {
-        return itemName;
+    public PollSystemFirstQuestion getFirstQuestion() {
+        return firstQuestion;
     }
 
-    public Long getPrice() {
-        return price;
+    public PollSystemSecondQuestion getSecondQuestion() {
+        return secondQuestion;
     }
 
-    public PollSystemFirstQuestion getCurrency() {
-        return currency;
+    public PollSystemThirdQuestion getThirdQuestion() {
+        return thirdQuestion;
+    }
+
+    public PollSystemFourthQuestion getFourthQuestion() {
+        return fourthQuestion;
     }
 
     public void setId(Long id) {
@@ -45,16 +56,20 @@ public class PollSystem {
         this.customerId = customerId;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setFirstQuestion(PollSystemFirstQuestion firstQuestion) {
+        this.firstQuestion = firstQuestion;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
+    public void setSecondQuestion(PollSystemSecondQuestion secondQuestion) {
+        this.secondQuestion = secondQuestion;
     }
 
-    public void setCurrency(PollSystemFirstQuestion currency) {
-        this.currency = currency;
+    public void setThirdQuestion(PollSystemThirdQuestion thirdQuestion) {
+        this.thirdQuestion = thirdQuestion;
+    }
+
+    public void setFourthQuestion(PollSystemFourthQuestion fourthQuestion) {
+        this.fourthQuestion = fourthQuestion;
     }
 
     public PollSystemResponse toCustomerOrderResponse(Customer customer, List<PollSystem> pollSystemList){
