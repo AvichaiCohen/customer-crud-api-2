@@ -15,22 +15,22 @@ public class PollSystemController {
 
     @PostMapping(value = "/pollSystem/create")
     public PollSystemResponse createpollSystem(@RequestBody PollSystemRequest pollSystemRequest) throws Exception {
-        return pollSystemService.createCustomerOrder(pollSystemRequest);
+        return pollSystemService.createPollSystem(pollSystemRequest);
     }
 
-    @PutMapping(value = "/pollSystem/{customerOrderId}/update")
-    public void updateCustomerOrderById(@PathVariable Long customerOrderId,
+    @PutMapping(value = "/pollSystem/{pollSystemId}/update")
+    public void updatePollSystemById(@PathVariable Long pollSystemId,
                                         @RequestBody PollSystem pollSystem) throws Exception {
-        pollSystemService.updateCustomerOrderById(customerOrderId, pollSystem);
+        pollSystemService.updatePollSystemById(pollSystemId, pollSystem);
     }
 
-    @DeleteMapping(value = "/pollSystem/{customerOrderId}/delete")
-    public void deleteCustomerOrderById(@PathVariable Long customerOrderId) throws Exception {
-        pollSystemService.deleteCustomerOrderById(customerOrderId);
+    @DeleteMapping(value = "/pollSystem/{pollSystemId}/delete")
+    public void deletePollSystemById(@PathVariable Long pollSystemId) throws Exception {
+        pollSystemService.deletePollSystemById(pollSystemId);
     }
 
-    @GetMapping(value = "/pollSystem/{customerOrderId}")
-    public PollSystem getCustomerOrderById(@PathVariable Long customerOrderId) {
-        return pollSystemService.getCustomerOrderById(customerOrderId);
+    @GetMapping(value = "/pollSystem/{pollSystemId}")
+    public PollSystem getPollSystemById(@PathVariable Long pollSystemId) {
+        return pollSystemService.getPollSystemById(pollSystemId);
     }
 }

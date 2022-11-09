@@ -17,26 +17,26 @@ public class PollSystemRepositoryImpl implements PollSystemRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createCustomerOrder(PollSystem pollSystem) throws Exception {
-        String sql = "INSERT INTO " + CUSTOMER_ORDER_TABLE_NAME + " (customer_id, item_name, price, currency) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getItemName(), pollSystem.getPrice(), pollSystem.getCurrency().name());
+    public void createPollSystem(PollSystem pollSystem) throws Exception {
+        String sql = "INSERT INTO " + CUSTOMER_ORDER_TABLE_NAME + " (customer_id,first_question,second_question,third_question,fourth_question ) VALUES (?, ?, ?, ?,?)";
+        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getFirstQuestion(),pollSystem.getSecondQuestion(),pollSystem.getThirdQuestion(),pollSystem.getFourthQuestion());
     }
 
     @Override
-    public void updateCustomerOrderById(Long customerOrderId, PollSystem pollSystem) throws Exception {
-        String sql = "UPDATE " + CUSTOMER_ORDER_TABLE_NAME + " SET customer_id=?, item_name=?, price=?, currency=?" +
+    public void updatePollSystemById(Long pollSystemId, PollSystem pollSystem) throws Exception {
+        String sql = "UPDATE " + CUSTOMER_ORDER_TABLE_NAME + " SET customer_id=?, first_question=?, second_question=?, third_question=?, fourth_question=?" +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getItemName(), pollSystem.getPrice(), pollSystem.getCurrency().name(), customerOrderId);
+        jdbcTemplate.update(sql, pollSystem.getCustomerId(), pollSystem.getFirstQuestion(),pollSystem.getSecondQuestion(),pollSystem.getThirdQuestion(),pollSystem.getFourthQuestion(), pollSystemId);
     }
 
     @Override
-    public void deleteCustomerOrderById(Long id) throws Exception {
+    public void deletePollSystemById(Long id) throws Exception {
         String sql = "DELETE FROM " + CUSTOMER_ORDER_TABLE_NAME + " WHERE id=?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public PollSystem getCustomerOrderById(Long id) {
+    public PollSystem getPollSystemById(Long id) {
         String sql = "SELECT * FROM " + CUSTOMER_ORDER_TABLE_NAME + " WHERE id=?";
         try {
             return jdbcTemplate.queryForObject(sql, new PollSystemMapper(), id);
@@ -46,7 +46,7 @@ public class PollSystemRepositoryImpl implements PollSystemRepository {
     }
 
     @Override
-    public List<PollSystem> getCustomerOrdersByCustomerId(Long customerId) {
+    public List<PollSystem> getPollSystemByCustomerId(Long customerId) {
         String sql = "SELECT * FROM " + CUSTOMER_ORDER_TABLE_NAME + " WHERE customer_id=?";
         try {
             return jdbcTemplate.query(sql, new PollSystemMapper(), customerId);
