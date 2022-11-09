@@ -1,6 +1,7 @@
 package com.customerService.repository;
 
 import com.customerService.model.Customer;
+import com.customerService.model.CustomerStatus;
 import com.customerService.repository.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,9 +19,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createCustomer(Customer customer) {
-        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, age, address, joining_date) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate());
+    public Long createCustomer(Customer customer) {
+        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, status) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getStatus().name());
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override
@@ -72,6 +74,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         try {
             return jdbcTemplate.queryForList(sql, Long.class, firstName);
         } catch (EmptyResultDataAccessException error){
+            return null;
+        }
+    }
+
+    @Override
+    public List<Customer> getAllCustomersByStatus(CustomerStatus status) {
+        String sql = "SELECT * FROM " + CUSTOMER_TABLE_NAME + " AS C WHERE C.status = ?";
+        try {
+            return jdbcTemplate.query(sql, new CustomerMapper(), status.name());
+        } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
