@@ -21,7 +21,7 @@ public class PollSystemServiceImpl implements PollSystemService {
 
 
     @Override
-    public PollSystemResponse createCustomerOrder(PollSystemRequest pollSystemRequest) throws Exception {
+    public PollSystemResponse createPollSystem(PollSystemRequest pollSystemRequest) throws Exception {
         Customer selectedCustomer = pollSystemRequest.getCustomer();
         Customer customerForResponse = null;
         if(selectedCustomer != null){
@@ -29,7 +29,7 @@ public class PollSystemServiceImpl implements PollSystemService {
                 Customer existingCustomer = customerService.getCustomerById(selectedCustomer.getId());
                 if(existingCustomer != null){
                     // create new customer order and associate to the customer
-                    pollSystemRepository.createCustomerOrder(pollSystemRequest.toCustomerOrder());
+                    pollSystemRepository.createPollSystem(pollSystemRequest.toCustomerOrder());
                     customerForResponse = existingCustomer;
                 } else {
                     throw new Exception("Can't create customerOrder with non existing customer id " + selectedCustomer.getId());
@@ -38,31 +38,31 @@ public class PollSystemServiceImpl implements PollSystemService {
                 Long createdCustomerId = customerService.createCustomer(selectedCustomer);
                 PollSystem pollSystemToCreate = pollSystemRequest.toCustomerOrder();
                 pollSystemToCreate.setCustomerId(createdCustomerId);
-                pollSystemRepository.createCustomerOrder(pollSystemToCreate);
+                pollSystemRepository.createPollSystem(pollSystemToCreate);
                 customerForResponse = customerService.getCustomerById(createdCustomerId);
             }
         } else {
             throw new Exception("Can't create customerOrder with customer as null");
         }
-        List<PollSystem> pollSystemList = pollSystemRepository.getCustomerOrdersByCustomerId(customerForResponse.getId());
+        List<PollSystem> pollSystemList = pollSystemRepository.getPollSystemByCustomerId(customerForResponse.getId());
         PollSystemResponse pollSystemResponse = pollSystemRequest.getCustomerOrder().toCustomerOrderResponse(customerForResponse, pollSystemList);
         return pollSystemResponse;
     }
 
     @Override
-    public void updateCustomerOrderById(Long customerOrderId, PollSystem pollSystem) throws Exception {
-        pollSystemRepository.updateCustomerOrderById(customerOrderId, pollSystem);
+    public void updatePollSystemById(Long pollSystemId, PollSystem pollSystem) throws Exception {
+        pollSystemRepository.updatePollSystemById(pollSystemId, pollSystem);
 
     }
 
     @Override
-    public void deleteCustomerOrderById(Long id) throws Exception {
-        pollSystemRepository.deleteCustomerOrderById(id);
+    public void deletePollSystemById(Long id) throws Exception {
+        pollSystemRepository.deletePollSystemById(id);
 
     }
 
     @Override
-    public PollSystem getCustomerOrderById(Long id) {
-        return pollSystemRepository.getCustomerOrderById(id);
+    public PollSystem getPollSystemById(Long id) {
+        return pollSystemRepository.getPollSystemById(id);
     }
 }

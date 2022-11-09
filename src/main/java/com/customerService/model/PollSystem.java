@@ -7,9 +7,9 @@ public class PollSystem {
     private Long customerId;
     private String itemName;
     private Long price;
-    private PollSystemCurrency currency;
+    private PollSystemFirstQuestion currency;
 
-    public PollSystem(Long id, Long customerId, String itemName, Long price, PollSystemCurrency currency) {
+    public PollSystem(Long id, Long customerId, String itemName, Long price, PollSystemFirstQuestion currency) {
         this.id = id;
         this.customerId = customerId;
         this.itemName = itemName;
@@ -33,7 +33,7 @@ public class PollSystem {
         return price;
     }
 
-    public PollSystemCurrency getCurrency() {
+    public PollSystemFirstQuestion getCurrency() {
         return currency;
     }
 
@@ -53,7 +53,7 @@ public class PollSystem {
         this.price = price;
     }
 
-    public void setCurrency(PollSystemCurrency currency) {
+    public void setCurrency(PollSystemFirstQuestion currency) {
         this.currency = currency;
     }
 

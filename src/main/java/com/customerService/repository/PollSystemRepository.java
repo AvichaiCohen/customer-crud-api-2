@@ -5,9 +5,9 @@ import com.customerService.model.PollSystem;
 import java.util.List;
 
 public interface PollSystemRepository {
-    void createCustomerOrder(PollSystem pollSystem) throws Exception;
-    void updateCustomerOrderById(Long customerOrderId, PollSystem pollSystem) throws Exception;
-    void deleteCustomerOrderById(Long id) throws Exception;
-    PollSystem getCustomerOrderById(Long id);
-    List<PollSystem> getCustomerOrdersByCustomerId(Long customerId);
+    void createPollSystem(PollSystem pollSystem) throws Exception;
+    void updatePollSystemById(Long pollSystemId, PollSystem pollSystem) throws Exception;
+    void deletePollSystemById(Long id) throws Exception;
+    PollSystem getPollSystemById(Long id);
+    List<PollSystem> getPollSystemByCustomerId(Long customerId);
 }

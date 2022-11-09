@@ -1,7 +1,7 @@
 package com.customerService.repository.mapper;
 
 import com.customerService.model.PollSystem;
-import com.customerService.model.PollSystemCurrency;
+import com.customerService.model.PollSystemFirstQuestion;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ public class PollSystemMapper implements RowMapper<PollSystem> {
                 rs.getLong("customer_id"),
                 rs.getString("item_name"),
                 rs.getLong("price"),
-                PollSystemCurrency.valueOf(rs.getString("currency"))
+                PollSystemFirstQuestion.valueOf(rs.getString("currency"))
         );
     }
 }
