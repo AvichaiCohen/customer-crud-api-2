@@ -12,9 +12,11 @@ spring:
   h2:
     console:
       enabled: true
-externakApi:
+      
+externalApi:
   tvMaze:
-    url: http://api.tvmaze.com
-  lastFm:
-    url : http://ws.audioscrobbler.com/2.0
-
+    url: https://api.tvmaze.com
+  lastFM:
+    url: http://ws.audioscrobbler.com/2.0
+  customerService:
+    url: localhost:8082
