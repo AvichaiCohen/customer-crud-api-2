@@ -21,10 +21,6 @@ public class CustomerController {
     public void createCustomer(@RequestBody Customer customer) {
         customerRepository.createCustomer(customer);
     }
-    @PostMapping(value = "/customer/cre")
-    public String createTest(@RequestBody String joindate){
-        return String.format(joindate+"mofkag");
-    }
 
     @PutMapping(value = "/customer/{customerId}/update")
     public void updateCustomerById(@PathVariable Long customerId,

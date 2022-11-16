@@ -3,6 +3,8 @@ package com.customerService.repository;
 import com.customerService.model.Customer;
 import com.customerService.model.CustomerStatus;
 import com.customerService.repository.mapper.CustomerMapper;
+import com.customerService.repository.redis.CacheRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,10 +20,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private CacheRepository cacheRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public Long createCustomer(Customer customer) {
         String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, age, address, joining_date,status) VALUES (?, ?, ?, ?, ?, ?,?)";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus());
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus().name());
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
@@ -29,7 +37,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void updateCustomerById(Long customerId, Customer customer) {
         String sql = "UPDATE " + CUSTOMER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, age=?, address=?,joining_date=?, status=?" +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(),customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus(), customerId);
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(),customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus().name(), customerId);
     }
 
     @Override
