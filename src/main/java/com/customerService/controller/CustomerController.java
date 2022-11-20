@@ -5,11 +5,17 @@ import com.customerService.model.Customer;
 import com.customerService.repository.CustomerRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.aspectj.bridge.IMessage;
+import org.aspectj.bridge.IMessageContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
+import java.net.http.HttpRequest;
 import java.sql.Date;
 import java.util.List;
+@RequestMapping("/customer")
 
 @RestController
 public class CustomerController {
@@ -17,33 +23,41 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @PostMapping(value = "/customer/create")
-    public void createCustomer(@RequestBody Customer customer) {
+    @PostMapping(value = "/create")
+    public String createCustomer(@RequestBody Customer customer) {
         customerRepository.createCustomer(customer);
+        return "Created";
     }
 
-    @PutMapping(value = "/customer/{customerId}/update")
+    @PutMapping(value = "/{customerId}/update")
     public void updateCustomerById(@PathVariable Long customerId,
                                    @RequestBody Customer customer){
         customerRepository.updateCustomerById(customerId, customer);
     }
 
-    @DeleteMapping(value = "/customer/{customerId}/delete")
+    @DeleteMapping(value = "/{customerId}/delete")
     public void deleteCustomerById(@PathVariable Long customerId){
         customerRepository.deleteCustomerById(customerId);
     }
 
-    @GetMapping(value = "/customer/{customerId}")
-    public Customer getCustomerById(@PathVariable Long customerId){
-        return customerRepository.getCustomerById(customerId);
+    @GetMapping(value = "/{customerId}")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Customer getCustomerById(@PathVariable Long customerId)throws Exception{
+        Customer existingCustomer = customerRepository.getCustomerById(customerId);
+            if (existingCustomer == null) {
+                System.out.println("in customer get method in if ");
+                throw new Error("no such customer exist");
+            }
+        System.out.println("in customer get method");
+        return existingCustomer;
     }
 
-    @GetMapping(value = "/customer/{firstName}/all")
+    @GetMapping(value = "/{firstName}/all")
     public List<Customer> getCustomersByFirstName(@PathVariable String firstName){
         return customerRepository.getCustomersByFirstName(firstName);
     }
 
-    @GetMapping(value = "/customer/all")
+    @GetMapping(value = "/all")
     public List<Customer> getAllCustomers(){
         return customerRepository.getAllCustomers();
     }
