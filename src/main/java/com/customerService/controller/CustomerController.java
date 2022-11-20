@@ -31,15 +31,28 @@ public class CustomerController {
 
     @PutMapping(value = "/{customerId}/update")
     public void updateCustomerById(@PathVariable Long customerId,
-                                   @RequestBody Customer customer){
-        customerRepository.updateCustomerById(customerId, customer);
+                                   @RequestBody Customer customer) throws Exception{
+        Customer existingCustomer = customerRepository.getCustomerById(customerId);
+        if (existingCustomer != null) {
+            customerRepository.updateCustomerById(customerId, customer);
+        }
+        else {
+            throw new Error ("no such customer exist");
+        }
     }
 
     @DeleteMapping(value = "/{customerId}/delete")
-    public void deleteCustomerById(@PathVariable Long customerId){
-        customerRepository.deleteCustomerById(customerId);
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public String deleteCustomerById(@PathVariable Long customerId) throws Exception {
+        Customer existingCustomer = customerRepository.getCustomerById(customerId);
+        if (existingCustomer != null) {
+            customerRepository.deleteCustomerById(customerId);
+        }
+        else {
+            throw new Error ("no such customer exist");
+        }
+        return "Customer Deleted";
     }
-
     @GetMapping(value = "/{customerId}")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Customer getCustomerById(@PathVariable Long customerId)throws Exception{

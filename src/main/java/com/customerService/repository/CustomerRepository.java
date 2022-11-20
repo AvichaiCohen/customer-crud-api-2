@@ -1,7 +1,6 @@
 package com.customerService.repository;
 
 import com.customerService.model.Customer;
-import com.customerService.model.CustomerStatus;
 
 import java.util.List;
 

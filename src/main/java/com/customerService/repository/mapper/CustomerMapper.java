@@ -1,7 +1,6 @@
 package com.customerService.repository.mapper;
 
 import com.customerService.model.Customer;
-import com.customerService.model.CustomerStatus;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
