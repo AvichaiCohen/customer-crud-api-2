@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS customer_order;
 DROP TABLE IF EXISTS customer;
 
 CREATE TABLE customer (
@@ -9,15 +8,5 @@ CREATE TABLE customer (
     age int(120) NOT NULL DEFAULT '',
     address varchar(300) NOT NULL DEFAULT '',
     joining_date varchar(300) NOT NULL DEFAULT '',
-    status varchar(300) NOT NULL DEFAULT 'REGULAR',
     PRIMARY KEY (id)
-);
-
-CREATE TABLE customer_order (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    customer_id int(11) unsigned NOT NULL,
-    item_name varchar(300) NOT NULL DEFAULT '',
-    price DECIMAL(100,2) NOT NULL DEFAULT '',
-    PRIMARY KEY (id),
-    FOREIGN KEY (customer_id) REFERENCES customer(id)
 );

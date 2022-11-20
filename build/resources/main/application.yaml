@@ -14,10 +14,6 @@ spring:
       enabled: true
 
 externalApi:
-  tvMaze:
-    url: https://api.tvmaze.com
-  lastFM:
-    url: http://ws.audioscrobbler.com/2.0
   customerService:
     url: localhost:8082
 
