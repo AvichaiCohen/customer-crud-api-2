@@ -21,34 +21,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Long createCustomer(Customer customer) throws Exception {
-        if(customer.getStatus() == CustomerStatus.VIP){
-            List<Customer> vipCustomers = customerRepository.getAllCustomersByStatus(CustomerStatus.VIP);
-            if(vipCustomers.size() < 10 ) {
-                return customerRepository.createCustomer(customer);
-            } else {
-                throw new Exception("Can't create new customer with VIP status, Out of limit");
-            }
-        } else {
             return customerRepository.createCustomer(customer);
-        }
     }
 
     @Override
     public void updateCustomerById(Long customerId, Customer customer) throws Exception {
-        if(customer.getStatus() == CustomerStatus.VIP){
-            Customer existingCustomer = customerRepository.getCustomerById(customerId);
-            if(existingCustomer.getStatus() != CustomerStatus.VIP){
-                List<Customer> vipCustomers = customerRepository.getAllCustomersByStatus(CustomerStatus.VIP);
-                if(vipCustomers.size() < 10){
-                    customerRepository.updateCustomerById(customerId, customer);
-                } else {
-                    throw new Exception("Can't update customer status to VIP, Out of limit");
-                }
-            } else {
-                customerRepository.updateCustomerById(customerId, customer);
-            }
-        } else {
+        Customer existingCustomer =  customerRepository.getCustomerById(customerId);
+        if(existingCustomer != null){
             customerRepository.updateCustomerById(customerId, customer);
+        } else {
+            throw new Exception("The customer id: " + customerId + " is not existing, so we can't delete it");
         }
     }
 

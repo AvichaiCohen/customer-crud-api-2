@@ -14,5 +14,4 @@ public interface CustomerRepository {
     List<Customer> getAllCustomers();
     List<Long> getCustomerIdsByFirstName(String firstName);
 
-    List<Customer> getAllCustomersByStatus(CustomerStatus vip);
 }

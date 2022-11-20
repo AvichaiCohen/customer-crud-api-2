@@ -1,7 +1,6 @@
 package com.customerService.repository;
 
 import com.customerService.model.Customer;
-import com.customerService.model.CustomerStatus;
 import com.customerService.repository.mapper.CustomerMapper;
 import com.customerService.repository.redis.CacheRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,16 +27,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Long createCustomer(Customer customer) {
-        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, age, address, joining_date,status) VALUES (?, ?, ?, ?, ?, ?,?)";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus().name());
+        String sql = "INSERT INTO " + CUSTOMER_TABLE_NAME + " (first_name, last_name, email, age, address, joining_date) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAge(),customer.getAddress(),customer.getJoiningDate());
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override
     public void updateCustomerById(Long customerId, Customer customer) {
-        String sql = "UPDATE " + CUSTOMER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, age=?, address=?,joining_date=?, status=?" +
+        String sql = "UPDATE " + CUSTOMER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, age=?, address=?,joining_date=?" +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(),customer.getAge(),customer.getAddress(),customer.getJoiningDate(),customer.getStatus().name(), customerId);
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(),customer.getAge(),customer.getAddress(),customer.getJoiningDate(), customerId);
     }
 
     @Override
@@ -82,16 +81,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         try {
             return jdbcTemplate.queryForList(sql, Long.class, firstName);
         } catch (EmptyResultDataAccessException error){
-            return null;
-        }
-    }
-
-    @Override
-    public List<Customer> getAllCustomersByStatus(CustomerStatus status) {
-        String sql = "SELECT * FROM " + CUSTOMER_TABLE_NAME + " AS C WHERE C.status = ?";
-        try {
-            return jdbcTemplate.query(sql, new CustomerMapper(), status.name());
-        } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
