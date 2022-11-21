@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
     ObjectMapper objectMapper;
 
     @Override
-    public Long createCustomer(Customer customer) throws Exception {
+    public Long createCustomer(Customer customer){
             return customerRepository.createCustomer(customer);
     }
 
@@ -33,14 +33,23 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomerById(Long id) throws Exception {
-        Customer existingCustomer =  customerRepository.getCustomerById(id);
-        if(existingCustomer != null){
+    public void deleteCustomerById(Long id) {
             customerRepository.deleteCustomerById(id);
-        } else {
-            throw new Exception("The customer id: " + id + " is not existing, so we can't delete it");
-        }
+
     }
+//        @Override
+//    public void deleteCustomerById(Long id) throws Exception {
+//        System.out.println("in Service before delete");
+//        Customer existingCustomer =  customerRepository.getCustomerById(id);
+//        if(existingCustomer != null){
+//            System.out.println("in Service in if");
+//            customerRepository.deleteCustomerById(id);
+//            System.out.println("in Service after delete repository method ");
+//        } else {
+//            System.out.println("in Service no delete");
+//            throw new Exception("The customer id: " + id + " is not existing, so we can't delete it");
+//        }
+//    }
 
     @Override
     public Customer getCustomerById(Long id) {

@@ -2,61 +2,52 @@ package com.customerService.controller;
 
 
 import com.customerService.model.Customer;
-import com.customerService.repository.CustomerRepository;
+import com.customerService.service.CustomerService;
+import com.customerService.service.InternalPollService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.aspectj.bridge.IMessage;
-import org.aspectj.bridge.IMessageContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
-
-import java.net.http.HttpRequest;
-import java.sql.Date;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 @RequestMapping("/customer")
 
 @RestController
 public class CustomerController {
 
+
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
+
+    @Autowired
+    private InternalPollService internalPollService;
 
     @PostMapping(value = "/create")
     public String createCustomer(@RequestBody Customer customer) {
-        customerRepository.createCustomer(customer);
+        customerService.createCustomer(customer);
         return "Created";
     }
 
     @PutMapping(value = "/{customerId}/update")
     public void updateCustomerById(@PathVariable Long customerId,
                                    @RequestBody Customer customer) throws Exception{
-        Customer existingCustomer = customerRepository.getCustomerById(customerId);
+        Customer existingCustomer = customerService.getCustomerById(customerId);
         if (existingCustomer != null) {
-            customerRepository.updateCustomerById(customerId, customer);
+            customerService.updateCustomerById(customerId, customer);
         }
         else {
             throw new Error ("no such customer exist");
         }
     }
 
-    @DeleteMapping(value = "/{customerId}/delete")
-    @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public String deleteCustomerById(@PathVariable Long customerId) throws Exception {
-        Customer existingCustomer = customerRepository.getCustomerById(customerId);
-        if (existingCustomer != null) {
-            customerRepository.deleteCustomerById(customerId);
-        }
-        else {
-            throw new Error ("no such customer exist");
-        }
-        return "Customer Deleted";
+    @DeleteMapping(value = "/delete/{customerId}")
+    public void deleteCustomerById(@PathVariable Long customerId) throws Exception {
+        System.out.println("in Controller before delete method to Service");
+        customerService.deleteCustomerById(customerId);
+        System.out.println("in Controller after delete method to Service");
     }
     @GetMapping(value = "/{customerId}")
-    @ResponseStatus(code = HttpStatus.CREATED)
     public Customer getCustomerById(@PathVariable Long customerId)throws Exception{
-        Customer existingCustomer = customerRepository.getCustomerById(customerId);
+        Customer existingCustomer = customerService.getCustomerById(customerId);
             if (existingCustomer == null) {
                 System.out.println("in customer get method in if ");
                 throw new Error("no such customer exist");
@@ -67,17 +58,17 @@ public class CustomerController {
 
     @GetMapping(value = "/{firstName}/all")
     public List<Customer> getCustomersByFirstName(@PathVariable String firstName){
-        return customerRepository.getCustomersByFirstName(firstName);
+        return customerService.getCustomersByFirstName(firstName);
     }
 
     @GetMapping(value = "/all")
     public List<Customer> getAllCustomers(){
-        return customerRepository.getAllCustomers();
+        return customerService.getAllCustomers();
     }
 
     @GetMapping(value = "/customerId/{firstName}/all")
     public List<Long> getCustomerIdsByFirstName(@PathVariable String firstName){
-        return customerRepository.getCustomerIdsByFirstName(firstName);
+        return customerService.getCustomerIdsByFirstName(firstName);
     }
 }
 

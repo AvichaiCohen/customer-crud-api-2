@@ -41,8 +41,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void deleteCustomerById(Long id) {
+        System.out.println("in repository");
         String sql = "DELETE FROM " + CUSTOMER_TABLE_NAME + " WHERE id=?";
         jdbcTemplate.update(sql, id);
+        System.out.println("in repository after delete");
     }
 
     @Override
